@@ -7,10 +7,10 @@ services:
     #volumes:
     #    - db_data:/var/lib/mysql
     environment:
-        MYSQL_ROOT_PASSWORD: xxx423401
+        MYSQL_ROOT_PASSWORD: xxx1234
         MYSQL_DATABASE: nest_test
         MYSQL_USER: nest_app_user
-        MYSQL_PASSWORD: xxx423401
+        MYSQL_PASSWORD: xxx1234
     container_name: nest_database_container
     ports:
         - "3309:3306"
@@ -28,10 +28,10 @@ services:
     depends_on:
       - db
     environment:
-      MYSQL_ROOT_PASSWORD: xxx423401
+      MYSQL_ROOT_PASSWORD: xxx1234
       MYSQL_DATABASE: nest_test
       MYSQL_USER: nest_app_user
-      MYSQL_PASSWORD: xxx423401
+      MYSQL_PASSWORD: xxx1234
       MYSQL_HOST: nest_database_container
     networks:
       - nest-api-net
