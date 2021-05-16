@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -8,8 +9,11 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { plainToClass } from 'class-transformer';
+import { error } from 'node:console';
 import { config } from 'rxjs';
 import { User } from 'src/entities/user';
+import { UserResponse } from './dto/user.response';
 import { UserRequestDto } from './dto/userRequestDto';
 import { UserService } from './user.service';
 
@@ -19,12 +23,11 @@ export class UserController {
 
   @Post('/')
   @UsePipes(new ValidationPipe())
-  async addUser(@Res() res, @Body() userDto: UserRequestDto): Promise<User> {
+  async addUser(@Body() userDto: UserRequestDto): Promise<UserResponse> {
     try {
-      const result = await this.userService.addUser(userDto);
-      return res.status(HttpStatus.CREATED).json(result);
-    } catch (error) {
-      console.log(error);
+      return await this.userService.addUser(userDto);
+    } catch (err) {
+      throw new BadRequestException(err);
     }
   }
 
