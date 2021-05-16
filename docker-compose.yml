@@ -1,0 +1,44 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    #volumes:
+    #    - db_data:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: xxx423401
+        MYSQL_DATABASE: nest_test
+        MYSQL_USER: nest_app_user
+        MYSQL_PASSWORD: xxx423401
+    container_name: nest_database_container
+    ports:
+        - "3309:3306"
+    networks:
+      - nest-api-net
+  nest_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nest_application_api
+    container_name: nest_api_container
+    ports:
+        - "8080:3000"
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: xxx423401
+      MYSQL_DATABASE: nest_test
+      MYSQL_USER: nest_app_user
+      MYSQL_PASSWORD: xxx423401
+      MYSQL_HOST: nest_database_container
+    networks:
+      - nest-api-net
+
+volumes:
+  db_data: {}
+
+networks:
+  nest-api-net:
+    driver: bridge
