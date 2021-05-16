@@ -4,8 +4,6 @@ services:
   db:
     image: mysql:5.7
     restart: always
-    #volumes:
-    #    - db_data:/var/lib/mysql
     environment:
         MYSQL_ROOT_PASSWORD: xxx1234
         MYSQL_DATABASE: nest_test
@@ -35,9 +33,6 @@ services:
       MYSQL_HOST: nest_database_container
     networks:
       - nest-api-net
-
-volumes:
-  db_data: {}
 
 networks:
   nest-api-net:
