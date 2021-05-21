@@ -44,7 +44,10 @@ docker logs nest_database_container -f
 //docker inspect a network
 docker network inspect nest-api-net
 
-// docker remove all images at onece
+// docker remove all images at onece (be aware)
 docker rmi -f $(docker images -a -q)
+
+// launch multiple with single command
+docker-compose up -d --scale nest_app=10
 
 ```

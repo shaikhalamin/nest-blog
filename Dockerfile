@@ -7,7 +7,8 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 8080
+#EXPOSE 8080
+EXPOSE 3000
 
 RUN yarn run build
 

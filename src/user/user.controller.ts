@@ -33,6 +33,6 @@ export class UserController {
 
   @Get('/all')
   getUser() {
-    return `hello ${process.env.MYSQL_DATABASE}--v2-- ${process.env.MYSQL_HOST}`;
+    return `hello ${process.env.MYSQL_DATABASE}--v3-- ${process.env.MYSQL_HOST}`;
   }
 }
