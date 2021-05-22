@@ -13,4 +13,8 @@ export class UserService {
       await this.userRepository.addUser(userDto),
     );
   }
+
+  async findAll(): Promise<UserResponse[]> {
+    return plainToClass(UserResponse, await this.userRepository.findAll());
+  }
 }

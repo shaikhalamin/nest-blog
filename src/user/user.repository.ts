@@ -12,4 +12,12 @@ export class UserRepository extends Repository<User> {
       throw new BadRequestException(error);
     }
   }
+
+  async findAll(): Promise<User[]> {
+    try {
+      return await this.find({});
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }

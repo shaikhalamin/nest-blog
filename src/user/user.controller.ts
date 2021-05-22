@@ -3,19 +3,15 @@ import {
   Body,
   Controller,
   Get,
-  HttpStatus,
   Post,
-  Res,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { plainToClass } from 'class-transformer';
-import { error } from 'node:console';
-import { config } from 'rxjs';
-import { User } from 'src/entities/user';
 import { UserResponse } from './dto/user.response';
 import { UserRequestDto } from './dto/userRequestDto';
 import { UserService } from './user.service';
+import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -32,7 +28,13 @@ export class UserController {
   }
 
   @Get('/all')
-  getUser() {
-    return `hello ${process.env.MYSQL_DATABASE}--v3-- ${process.env.MYSQL_HOST}`;
+  async getUser(@Req() request: Request): Promise<UserResponse[]> {
+    try {
+      console.log('user ip', request.ip);
+      console.log('request in all', request.headers);
+      return await this.userService.findAll();
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
   }
 }
