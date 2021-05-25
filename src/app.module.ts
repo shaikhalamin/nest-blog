@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as config from '../orm-config.js';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({ ...config, type: 'mysql' }), UserModule],
+  imports: [TypeOrmModule.forRoot({ ...config, type: 'postgres' }), UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

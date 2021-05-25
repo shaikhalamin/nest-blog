@@ -2,12 +2,12 @@
 const { SnakeNamingStrategy } = require('typeorm-naming-strategies');
 
 module.exports = {
-  type: process.env.DATABASE_TYPE || 'mysql',
-  host: process.env.DATABASE_HOST || 'db',
-  port: Number(process.env.DATABASE_PORT) || 3306,
-  username: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  type: 'mysql',
+  host: process.env.MYSQL_HOST || 'db',
+  port: 3306,
+  username: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
   synchronize: true,
   keepConnectionAlive: true,
   logging: true,
