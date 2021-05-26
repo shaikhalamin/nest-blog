@@ -31,6 +31,7 @@ services:
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
+      DB_URL: ${DB_URL}
     # networks:
     #   - nest-api-net
   db:
@@ -43,7 +44,7 @@ services:
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     container_name: ${DATABASE_HOST}
     ports:
-      - '3310:3306'
+      - '3330:3306'
     # networks:
     #   - nest-api-net
 
