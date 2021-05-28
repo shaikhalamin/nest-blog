@@ -9,11 +9,15 @@ export class UserResponse {
 
   @Expose()
   @IsNotEmpty()
-  first_name: string;
+  name: string;
 
   @Expose()
   @IsNotEmpty()
-  last_name: string;
+  username: string;
+
+  @Expose()
+  @IsNotEmpty()
+  email: string;
 
   @Expose()
   @IsNotEmpty()

@@ -1,10 +1,6 @@
-import {
-  AfterInsert,
-  Column,
-  Entity,
-  InsertEvent,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class User {
@@ -12,16 +8,27 @@ export class User {
   id: number;
 
   @Column()
-  first_name: string;
+  name: string;
+
+  @Column({ unique: true })
+  username: string;
 
   @Column()
-  last_name: string;
+  email: string;
+
+  @Column()
+  password: string;
 
   @Column({ default: true })
   is_active: boolean;
 
-  @AfterInsert()
-  resetCounters(event: InsertEvent<User>) {
-    console.log('before user inserting...:', event);
+  @BeforeInsert()
+  async hashPassword() {
+    const salt = bcrypt.genSaltSync(10);
+    this.password = bcrypt.hashSync(this.password, salt);
+  }
+
+  async validatePassword(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password);
   }
 }
