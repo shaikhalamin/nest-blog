@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { User } from 'src/entities/user';
 import { ServiceInterface } from 'src/shared/interface/service.interface';
@@ -9,16 +13,29 @@ import { UserRepository } from './user.repository';
 @Injectable()
 export class UserService implements ServiceInterface {
   constructor(private userRepository: UserRepository) {}
+
   async findAll(query?: any): Promise<UserResponse[]> {
     return plainToClass(UserResponse, await this.userRepository.findAll());
   }
   async findById(id: number): Promise<User> {
-    return await this.userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new NotFoundException('User not found !');
+    }
+    return user;
   }
   async findByUserName(username: string): Promise<User> {
-    return await this.userRepository.findByUserName(username);
+    const user = await this.userRepository.findByUserName(username);
+    if (!user) {
+      throw new NotFoundException('User not found !');
+    }
+    return user;
   }
   async add(userDto: UserRequestDto): Promise<UserResponse> {
+    const user = await this.findByUserName(userDto.username);
+    if (user) {
+      throw new BadRequestException('User already exists !');
+    }
     return plainToClass(
       UserResponse,
       await this.userRepository.addUser(userDto),

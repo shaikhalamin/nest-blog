@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 
@@ -8,10 +8,6 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() loginDto: LoginDto): Promise<{ access_token: string }> {
-    try {
-      return await this.authService.login(loginDto);
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
+    return await this.authService.login(loginDto);
   }
 }

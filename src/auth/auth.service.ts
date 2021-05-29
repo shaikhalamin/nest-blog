@@ -41,7 +41,7 @@ export class AuthService {
     const user = await this.userService.findByUserName(username);
 
     if (!(await user?.validatePassword(password))) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid usename or password !');
     }
     delete user.password;
     return user;

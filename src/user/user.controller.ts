@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
@@ -28,32 +27,19 @@ export class UserController implements ControllerInterface {
     @Query() query: any,
     @Req() request: Request,
   ): Promise<UserResponse[]> {
-    try {
-      return await this.userService.findAll(query);
-    } catch (err) {
-      throw new BadRequestException(err);
-    }
+    return await this.userService.findAll(query);
   }
 
   @Post('/')
   @UsePipes(new ValidationPipe())
   async create(@Body() userDto: UserRequestDto): Promise<UserResponse> {
-    try {
-      return await this.userService.add(userDto);
-    } catch (err) {
-      throw new BadRequestException(err);
-    }
+    return await this.userService.add(userDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async show(@Param('id') id: number, @Request() req): Promise<UserResponse> {
-    try {
-      console.log(req.user);
-      return plainToClass(UserResponse, await this.userService.findById(id));
-    } catch (err) {
-      throw new BadRequestException(err);
-    }
+    return plainToClass(UserResponse, await this.userService.findById(id));
   }
   edit(id: number): Promise<any> {
     throw new Error('Method not implemented.');
