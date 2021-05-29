@@ -26,9 +26,6 @@ export class UserService implements ServiceInterface {
   }
   async findByUserName(username: string): Promise<User> {
     const user = await this.userRepository.findByUserName(username);
-    if (!user) {
-      throw new NotFoundException('User not found !');
-    }
     return user;
   }
   async add(userDto: UserRequestDto): Promise<UserResponse> {

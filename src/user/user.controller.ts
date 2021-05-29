@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Post,
   Query,
@@ -39,7 +40,11 @@ export class UserController implements ControllerInterface {
   @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async show(@Param('id') id: number, @Request() req): Promise<UserResponse> {
-    return plainToClass(UserResponse, await this.userService.findById(id));
+    const user = await this.userService.findById(id);
+    if (!user) {
+      throw new NotFoundException('User not found !');
+    }
+    return plainToClass(UserResponse, user);
   }
   edit(id: number): Promise<any> {
     throw new Error('Method not implemented.');
