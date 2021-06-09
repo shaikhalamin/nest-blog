@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './profile/profile.module';
 import * as config from '../orm-config.js';
 
 const mySQLUrl = process.env.DB_URL;
@@ -23,6 +24,7 @@ const driverType = mySQLUrl ? 'mysql' : 'postgres';
     }),
     UserModule,
     AuthModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,13 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
+import { Profile } from './profile';
 
 @Entity({ name: 'users' })
 export class User {
@@ -21,6 +28,9 @@ export class User {
 
   @Column({ default: true })
   is_active: boolean;
+
+  @OneToOne(() => Profile, (profile) => profile.user)
+  profile: Profile;
 
   @BeforeInsert()
   async hashPassword() {
