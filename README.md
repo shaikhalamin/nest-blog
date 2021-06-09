@@ -29,6 +29,9 @@ docker-compose up --build -V
 //stop all container build from docker-compose
 docker-compose down
 
+//stop all container detach volume
+docker-compose down -v
+
 //ssh to docker container from direct image like mysql
 docker exec -it db40fd416dd5 bash
 

@@ -25,8 +25,7 @@ export class UserService implements ServiceInterface {
     return user;
   }
   async findByUserName(username: string): Promise<User> {
-    const user = await this.userRepository.findByUserName(username);
-    return user;
+    return await this.userRepository.findByUserName(username);
   }
   async add(userDto: UserRequestDto): Promise<UserResponse> {
     const user = await this.findByUserName(userDto.username);
