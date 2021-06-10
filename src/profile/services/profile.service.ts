@@ -31,7 +31,6 @@ export class ProfileService implements ServiceInterface {
     profileUpdateDto: ProfileUpdateDto,
   ): Promise<Profile> {
     const profile = await this.findById(id);
-
     return await this.profileRepository.updateProfile(
       profile,
       profileUpdateDto,

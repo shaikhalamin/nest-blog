@@ -43,6 +43,7 @@ export class ProfileController implements ControllerInterface {
   }
 
   @Put('/:id')
+  @UsePipes(new ValidationPipe())
   async edit(
     @Param('id') id: number,
     @Body() profileUpdateDto: ProfileUpdateDto,

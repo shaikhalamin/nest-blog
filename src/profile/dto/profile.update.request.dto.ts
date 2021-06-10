@@ -1,7 +1,40 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
-import { ProfileRequestDto } from './profile.request.dto';
+import { IsEmail, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 
-export class ProfileUpdateDto extends ProfileRequestDto {
+export class ProfileUpdateDto {
+  @IsOptional()
+  @IsNotEmpty()
+  full_name: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  cv_name: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  city: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  country: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  designation: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsInt()
+  user_id: number;
+
   @IsOptional()
   @IsNotEmpty()
   emergency_contact: string;

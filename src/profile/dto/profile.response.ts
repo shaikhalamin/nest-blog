@@ -37,6 +37,45 @@ export class ProfileResponse {
   designation: string;
 
   @Expose()
+  emergency_contact: string;
+
+  @Expose()
+  postal_code: string;
+
+  @Expose()
+  cityzenship: string;
+
+  @Expose()
+  maritial_status: string;
+
+  @Expose()
+  specialized_at: string;
+
+  @Expose()
+  about_info: string;
+
+  @Expose()
+  profile_title: string;
+
+  @Expose()
+  profile_meta: string;
+
+  @Expose()
+  date_of_birth: string;
+
+  @Expose()
+  profile_meta_descriptions: string;
+
+  @Expose()
+  linkedin_profile_path: string;
+
+  @Expose()
+  github_profile_path: string;
+
+  @Expose()
+  twitter_profile_path: string;
+
+  @Expose()
   @Type(() => UserResponse)
   user: UserResponse;
 }
