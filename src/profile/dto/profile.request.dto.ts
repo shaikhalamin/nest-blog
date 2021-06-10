@@ -1,7 +1,5 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { IsEmail, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 
-@Exclude()
 export class ProfileRequestDto {
   @IsNotEmpty()
   full_name: string;
@@ -24,4 +22,9 @@ export class ProfileRequestDto {
 
   @IsNotEmpty()
   designation: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsInt()
+  user_id: number;
 }
