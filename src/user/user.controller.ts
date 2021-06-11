@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Query,
   Req,
   Request,
@@ -18,6 +19,7 @@ import { UserService } from './user.service';
 import { plainToClass } from 'class-transformer';
 import { ControllerInterface } from 'src/shared/interface/controller.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UserUpdateRequestDto } from './dto/user.update.request.dto';
 
 @Controller('user')
 export class UserController implements ControllerInterface {
@@ -46,9 +48,20 @@ export class UserController implements ControllerInterface {
     }
     return plainToClass(UserResponse, user);
   }
-  edit(id: number): Promise<any> {
-    throw new Error('Method not implemented.');
+
+  @Put('/:id')
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe())
+  async edit(
+    @Param('id') id: number,
+    @Body() userUpdateRequestDto: UserUpdateRequestDto,
+  ): Promise<UserResponse> {
+    return plainToClass(
+      UserResponse,
+      await this.userService.update(id, userUpdateRequestDto),
+    );
   }
+
   destroy(id: number): Promise<any> {
     throw new Error('Method not implemented.');
   }
