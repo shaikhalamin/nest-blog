@@ -22,7 +22,7 @@ export class ProfileRepository extends Repository<Profile> {
 
   async findById(id: number): Promise<Profile> {
     try {
-      return this.findOne(id, { relations: ['user'] });
+      return this.findOne(id, { relations: ['user', 'experiences'] });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

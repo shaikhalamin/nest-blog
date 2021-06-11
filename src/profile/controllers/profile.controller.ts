@@ -43,6 +43,7 @@ export class ProfileController implements ControllerInterface {
   }
 
   @Put('/:id')
+  @UseGuards(JwtAuthGuard)
   @UsePipes(new ValidationPipe())
   async edit(
     @Param('id') id: number,

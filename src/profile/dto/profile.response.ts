@@ -1,6 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { Exclude, Expose, Type } from 'class-transformer';
 import { UserResponse } from 'src/user/dto/user.response';
+import { ExperienceDto } from './experience.dto';
 
 @Exclude()
 export class ProfileResponse {
@@ -78,4 +79,8 @@ export class ProfileResponse {
   @Expose()
   @Type(() => UserResponse)
   user: UserResponse;
+
+  @Expose()
+  @Type(() => ExperienceDto)
+  experiences: ExperienceDto;
 }

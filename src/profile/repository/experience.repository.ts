@@ -3,13 +3,12 @@ import { Experience } from 'src/entities/experience';
 import { Profile } from 'src/entities/profile';
 import { User } from 'src/entities/user';
 import { EntityRepository, Repository } from 'typeorm';
-import { ExperienceRequest } from '../dto/experience.dto';
-import { ProfileUpdateDto } from '../dto/profile.update.request.dto';
+import { ExperienceDto, ExperienceUpdateRequest } from '../dto/experience.dto';
 
 @EntityRepository(Experience)
 export class ExperienceRepository extends Repository<Experience> {
   async addExperience(
-    experienceRequestDto: ExperienceRequest,
+    experienceRequestDto: ExperienceDto,
     profile?: Profile,
   ): Promise<Experience> {
     try {
@@ -29,12 +28,14 @@ export class ExperienceRepository extends Repository<Experience> {
     }
   }
 
-  async updateProfile(
+  async updateExperience(
     experience: Experience,
-    profileUpdateDto: ProfileUpdateDto,
+    profile: Profile,
+    experienceUpdateDto: ExperienceUpdateRequest,
   ): Promise<Experience> {
     try {
-      const updated_experience = Object.assign(experience, profileUpdateDto);
+      const updated_experience = Object.assign(experience, experienceUpdateDto);
+      updated_experience.profile = profile;
       return await this.save(updated_experience);
     } catch (error) {
       throw new BadRequestException(error.message);

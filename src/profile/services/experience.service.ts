@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Experience } from 'src/entities/experience';
 import { ServiceInterface } from 'src/shared/interface/service.interface';
-import { ExperienceRequest } from '../dto/experience.dto';
+import { ExperienceDto, ExperienceUpdateRequest } from '../dto/experience.dto';
 import { ExperienceRepository } from '../repository/experience.repository';
 import { ProfileService } from './profile.service';
 
@@ -12,7 +12,7 @@ export class ExperienceService implements ServiceInterface {
     private profileService: ProfileService,
   ) {}
 
-  async add(experienceRequestDto: ExperienceRequest): Promise<Experience> {
+  async add(experienceRequestDto: ExperienceDto): Promise<Experience> {
     const profile = await this.profileService.findById(
       experienceRequestDto.profile_id,
     );
@@ -21,11 +21,22 @@ export class ExperienceService implements ServiceInterface {
       profile,
     );
   }
-  async findById(id: number): Promise<any> {
+  async findById(id: number): Promise<Experience> {
     return await this.experienceRepository.findById(id);
   }
-  update(id: number, body: any, req?: any): Promise<any> {
-    throw new Error('Method not implemented.');
+  async update(
+    id: number,
+    experienceUpdateDto: ExperienceUpdateRequest,
+  ): Promise<Experience> {
+    const experience = await this.findById(id);
+    const profile = await this.profileService.findById(
+      experienceUpdateDto.profile_id,
+    );
+    return this.experienceRepository.updateExperience(
+      experience,
+      profile,
+      experienceUpdateDto,
+    );
   }
   delete(id: number, req?: any): Promise<any> {
     throw new Error('Method not implemented.');
