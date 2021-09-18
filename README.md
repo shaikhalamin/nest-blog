@@ -38,6 +38,9 @@ docker exec -it db40fd416dd5 bash
 //ssh to docker container from build image with workdir
 docker exec -it db40fd416dd5 sh
 
+//excecute command on service level
+docker-compose run --rm php8_service php bin/console doctrine:database:create
+
 //docker inspect a specific container
 docker inspect nest_database_container
 
