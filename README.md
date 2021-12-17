@@ -56,4 +56,7 @@ docker rmi -f $(docker images -a -q)
 // launch multiple with single command
 docker-compose up -d --scale nest_app=10
 
+//when working on local machine and editing not working for docker container then run below command
+sudo chown -R shaikhalamin laravel-microservice-admin-rmqp/
+
 ```
