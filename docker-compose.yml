@@ -47,6 +47,18 @@ services:
       - '3330:3306'
     # networks:
     #   - nest-api-net
+#   postgres-db:
+#     image: postgres:10.5
+#     container_name: postgres_database
+#     restart: always
+#     environment:
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#     ports:
+#       - '5438:5432'
+#     volumes:
+#       - ./db-data:/var/lib/postgresql/data
+# docker exec -it postgres_database psql -U postgres
 
 # networks:
 #   nest-api-net:
